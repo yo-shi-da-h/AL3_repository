@@ -2,20 +2,38 @@
 #include "TextureManager.h"
 #include <cassert>
 
+
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete model_;
+	delete player_;
+
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	textureHandle_=TextureManager::Load("uvChecker.png");
+	model_=Model::Create();
+
+	worldTransform_.Initialize();
+	viewProiection_.Initialize();
+
+	player_ =new Player();
+	player_->Initialize(model_,textureHandle_,&viewProiection_);
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	player_->Update();
+	worldTransform_.TransferMatrix();
+}
 
 void GameScene::Draw() {
+	
 
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
@@ -40,6 +58,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
+	player_->Draw();
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
