@@ -20,11 +20,11 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vect
 
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> /2.0f;
 
-	Vector3 playerPosition = mapChipFiled->GetMapChipPositionByIndex()
+	//Vector3 playerPosition = mapChipFiled->GetMapChipPositionByIndex()
 
 }
 
-void Player::Update()
+/*void Player::Update()
 {
 	worldTransform_.TransferMatrix();
 }
@@ -32,6 +32,6 @@ void Player::Update()
 void Player::Draw()
 {
 	model_->Draw(worldTransform_,*viewProjection_,textureHandle_);
-}
+}*/
 
 

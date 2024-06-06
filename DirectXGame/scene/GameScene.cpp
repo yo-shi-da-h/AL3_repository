@@ -40,18 +40,16 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	modelSkydome_ = Model::CreateFromOBJ("SkyDome", true);	
-	skydome_ = new Skydome();
-	skydome_->Initialize(modelSkydome_, &viewProjection_);
+	
 
 	viewProjection_.Initialize();
 	modelBlock_ = Model::Create();
 	
 
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/block.csv");
+	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
-
+	GenerateBlock();
 }
 
 void GameScene::Update() {
@@ -78,7 +76,7 @@ void GameScene::Update() {
 	}
 
 
-	skydome_->Update();
+	//skydome_->Update();
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -116,12 +114,12 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	player_->Draw();
+	//player_->Draw();
 	/// </summary>
 
-	skydome_->Draw();
+	//skydome_->Draw();
 
-	/*for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
+	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine){
 			if (!worldTransformBlock)
 				continue;
@@ -129,7 +127,7 @@ void GameScene::Draw() {
 			
 	}
 }
-	*/
+	
 	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -158,6 +156,10 @@ void GameScene::GenerateBlock()
 	
 
 	worldTransformBlocks_.resize(kNumBlockHorizonal);
+
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
+	}
 
 	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
 		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
