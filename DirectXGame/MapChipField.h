@@ -33,7 +33,6 @@ class MapChipField
 
 };
 
-
 struct MapChipData
 {
 	std::vector<std::vector<MapChipType>> data;
