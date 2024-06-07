@@ -7,7 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
+#include "player.h"
 #include "DebugCamera.h"
 #include "skydome.h"
 
@@ -75,11 +75,13 @@ private: // メンバ変数
 	bool debugCameraActive_ = false;
 	// デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+	
+	Model* playermodel_ = nullptr;
 
 	//天球
 	//Skydome* skydome_ = nullptr;
 	// 3Dモデル
-	Model* modelSkydome_ = nullptr;
+	//Model* modelSkydome_ = nullptr;
 	//マップチップフィールド
 	MapChipField* mapChipField_;
 

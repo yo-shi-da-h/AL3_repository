@@ -1,9 +1,11 @@
 #include "WorldTransform.h"
 #include "Model.h"
+#include "MapChipField.h"
 
 class Player{
 
-	public:
+public:
+		static inline const float kAcceleration = 10.0f;
 		///<summary>
 		///初期化
 		///</summary>
@@ -16,10 +18,14 @@ class Player{
 		///描画
 		///<summary>
 		void Draw();
+
+		Vector3 velocity_ = {};
 private:
 	WorldTransform worldTransform_;
-	Model* model_=nullptr;
+	Model* model_= nullptr;
 	uint32_t textureHandle_ =0u;
 	ViewProjection* viewProjection_ = nullptr;
+	Player* player_ = nullptr;
 	
 };
+

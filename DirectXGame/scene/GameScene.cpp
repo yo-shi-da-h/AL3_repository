@@ -7,6 +7,7 @@
 
 
 
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -25,9 +26,13 @@ GameScene::~GameScene() {
 	}
 	worldTransformBlocks_.clear();
 
-	delete modelSkydome_;
+	//delete modelSkydome_;
 
 	delete mapChipField_;
+
+	delete model_;
+
+	delete player_;
 	
 }
 
@@ -43,6 +48,7 @@ void GameScene::Initialize() {
 	
 
 	viewProjection_.Initialize();
+	worldTransform_.Initialize();
 	modelBlock_ = Model::Create();
 	
 
@@ -50,10 +56,17 @@ void GameScene::Initialize() {
 	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
 	GenerateBlock();
+	player_=new Player;
+	playermodel_ = Model::CreateFromOBJ("Resources/player",true);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3,3);
+	model_ = Model::Create();
+    player_->Initialize(playermodel_, &viewProjection_,playerPosition);
+	
 }
 
 void GameScene::Update() {
 	debugCamera_->Update();
+	player_->Update();
 
 	#ifdef  _DEBUG
 
@@ -114,7 +127,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	//player_->Draw();
+	player_->Draw();
 	/// </summary>
 
 	//skydome_->Draw();
@@ -176,3 +189,7 @@ void GameScene::GenerateBlock()
 		}
 	}
 }
+
+
+
+

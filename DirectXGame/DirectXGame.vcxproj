@@ -113,7 +113,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChipField.cpp" />
     <ClCompile Include="matrix.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="skydome.cpp" />
   </ItemGroup>
@@ -148,7 +148,7 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="matrix.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="skydome.h" />
   </ItemGroup>
