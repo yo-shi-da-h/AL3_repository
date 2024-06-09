@@ -2,10 +2,6 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "matrix.h"
-#include "MapChipField.h"
-#include "MapChipField.h"
-#include "MapChipField.h"
-#include "MapChipField.h"
 
 GameScene::GameScene() {}
 
@@ -25,46 +21,56 @@ GameScene::~GameScene() {
 	}
 	worldTransformBlocks_.clear();
 
-	//delete modelSkydome_;
-
-	delete mapChipField_;
-
-	delete model_;
-
-	delete player_;
+	delete modelSkydome_;
 	
 }
 
 void GameScene::Initialize() {
 
+	debugCamera_ = new DebugCamera(1280, 720);
+
+
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-	textureHandle_=TextureManager::Load("uvChecker.png");
-	model_=Model::Create();
 
-	
+	modelSkydome_ = Model::CreateFromOBJ("SkyDrom", true);	
+	skydome_ = new Skydome();
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
 	viewProjection_.Initialize();
-	worldTransform_.Initialize();
 	modelBlock_ = Model::Create();
+	const uint32_t kNumBlockVirtical = 10;
+	const uint32_t kNumBlockHrizonal = 20;
+	const float kBlockWidth = 2.0f;
+	const float kBlockHeight = 2.0f;
+
+	worldTransformBlocks_.resize(kNumBlockHrizonal);
+
+	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
+		worldTransformBlocks_[i].resize(kNumBlockHrizonal);
+		for (uint32_t j = 0; j < kNumBlockHrizonal; ++j) {
+			
+				if ((i+j)%2==1) {
+				continue;
+			}
+
+					worldTransformBlocks_[i][j] = new WorldTransform();
+					worldTransformBlocks_[i][j]->Initialize();
+					worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
+					worldTransformBlocks_[i][j]->translation_.y = kBlockHeight * i;
+				
+			
+		}
+	}
+
 	
 
-	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/map.csv");
 
-	GenerateBlock();
-	player_=new Player;
-	playermodel_ = Model::CreateFromOBJ("Resources/player",true);
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3,3);
-	model_ = Model::Create();
-    player_->Initialize(playermodel_, &viewProjection_,playerPosition);
-	
 }
 
 void GameScene::Update() {
 	debugCamera_->Update();
-	player_->Update();
 
 	#ifdef  _DEBUG
 
@@ -87,7 +93,7 @@ void GameScene::Update() {
 	}
 
 
-	//skydome_->Update();
+	skydome_->Update();
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -126,9 +132,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	//skydome_->Draw();
+	skydome_->Deaw();
 
-	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
+	/*for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine){
 			if (!worldTransformBlock)
 				continue;
@@ -136,7 +142,7 @@ void GameScene::Draw() {
 			
 	}
 }
-	
+	*/
 	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -150,40 +156,10 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
+	
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
 #pragma endregion
 }
-
-void GameScene::GenerateBlock()
-{
-    uint32_t kNumBlockVirtical = mapChipField_->GetNumBlockVirtical();
-    uint32_t kNumBlockHorizonal = mapChipField_->GetNumBlockHorizontal();
-	
-
-	worldTransformBlocks_.resize(kNumBlockHorizonal);
-
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
-		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
-	}
-
-	for (uint32_t i = 0; i < kNumBlockVirtical; ++i) {
-		worldTransformBlocks_[i].resize(kNumBlockHorizonal);
-		for (uint32_t j = 0; j < kNumBlockHorizonal; ++j) {
-			
-			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
-				WorldTransform* worldTransform = new WorldTransform();
-				worldTransform->Initialize();
-				worldTransformBlocks_[i][j] = worldTransform;
-				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j,i);
-			}
-				
-			
-		}
-	}
-}
-
-
-
-
