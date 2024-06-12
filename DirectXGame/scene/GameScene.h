@@ -13,6 +13,7 @@
 
 #include <vector>
 #include "MapChipField.h"
+#include "CameraController.h"
 
 
 
