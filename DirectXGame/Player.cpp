@@ -8,6 +8,7 @@
 #define _USE_MATH_DEFINES
 #include <assert.h>
 #include "MapChipField.h"
+#include <algorithm>
 
 
 
@@ -49,6 +50,11 @@ void Player::Update()
 		}
 		//加速/減速
 		velocity_.x += acceleration.x;
+	    
+	}
+	else
+	{
+		velocity_.x *= (1.0f - kAcceleration);
 	}
 	//移動
 	worldTransform_.translation_.x += velocity_.x;

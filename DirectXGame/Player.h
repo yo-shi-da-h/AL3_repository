@@ -5,7 +5,7 @@
 class Player{
 
 public:
-		static inline const float kAcceleration = 10.0f;
+		static inline const float kAcceleration = 1.0f;
 		///<summary>
 		///初期化
 		///</summary>
