@@ -1,4 +1,5 @@
 #include "ViewProjection.h"
+
 #pragma once
 class CameraController
 {
@@ -7,7 +8,11 @@ class CameraController
 
 		void Update();
 
+		void SetTraget(Player* traget) {traget_ = traget;}
+
 private:
 	ViewProjection viewProjection_;
+	Player* traget_ = nullptr;
 };
+class Player;
 

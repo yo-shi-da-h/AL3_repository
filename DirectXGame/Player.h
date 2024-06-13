@@ -6,6 +6,12 @@ class Player{
 
 public:
 		static inline const float kAcceleration = 1.0f;
+		static inline const float kLimitRunSpeed = 3.0f;
+		enum class LRDirection
+{
+	kRight,kLeft,
+};
+
 		///<summary>
 		///初期化
 		///</summary>
@@ -28,4 +34,5 @@ private:
 	Player* player_ = nullptr;
 	
 };
+
 

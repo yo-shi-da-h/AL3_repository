@@ -42,15 +42,21 @@ void Player::Update()
 		Vector3 acceleration = {};
 		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
 			acceleration.x += kAcceleration;
+			if (velocity_.x < 0.0f) {
+				velocity_.x *= (1.0f - kAcceleration);
+			}
 
 		}
 		else if(Input::GetInstance()->PushKey(DIK_LEFT))
 		{
 			acceleration.x -= kAcceleration;
+			if (velocity_.x < 0.0f) {
+				velocity_.x *= (1.0f - kAcceleration);
+			}
 		}
 		//加速/減速
 		velocity_.x += acceleration.x;
-	    
+	    velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
 	}
 	else
 	{
