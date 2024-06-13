@@ -41,29 +41,29 @@ void Player::Update()
 		//左右加速
 		Vector3 acceleration = {};
 		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-			acceleration.x += kAcceleration;
-			if (velocity_.x < 0.0f) {
-				velocity_.x *= (1.0f - kAcceleration);
+			acceleration.x -= 60.0f;
+			if (velocity_.z < 0.0f) {
+				velocity_.z *= (1.0f - kAttenuation);
 			}
 
 		}
 		else if(Input::GetInstance()->PushKey(DIK_LEFT))
 		{
-			acceleration.x -= kAcceleration;
-			if (velocity_.x < 0.0f) {
-				velocity_.x *= (1.0f - kAcceleration);
+			acceleration.z -= kAcceleration;
+			if (velocity_.z < 0.0f) {
+				velocity_.z *= (1.0f - kAttenuation);
 			}
 		}
 		//加速/減速
-		velocity_.x += acceleration.x;
-	    velocity_.x = std::clamp(velocity_.x, -kLimitRunSpeed, kLimitRunSpeed);
+		velocity_.z += acceleration.z;
+	    velocity_.z = std::clamp(velocity_.z, -kLimitRunSpeed, kLimitRunSpeed);
 	}
 	else
 	{
-		velocity_.x *= (1.0f - kAcceleration);
+		velocity_.z *= (1.0f - kAttenuation);
 	}
 	//移動
-	worldTransform_.translation_.x += velocity_.x;
+	worldTransform_.translation_.z += velocity_.z;
 	//行列計算
 	worldTransform_.UpdateMatrix();
 }

@@ -8,11 +8,14 @@ class CameraController
 
 		void Update();
 
-		void SetTraget(Player* traget) {traget_ = traget;}
+		void SetTraget(Player* target) {target_ = target;}
+
+		void Reaet();
 
 private:
 	ViewProjection viewProjection_;
-	Player* traget_ = nullptr;
+	Player* target_ = nullptr;
+	Vector3 targetOffset_ = {0,0,-15.0f};
 };
 class Player;
 

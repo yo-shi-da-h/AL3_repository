@@ -4,6 +4,7 @@
 #include <cassert>
 #include "matrix.h"
 #include "MapChipField.h"
+#include "Player.h"
 
 
 
