@@ -29,6 +29,7 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vect
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> /2.0f;
 
 	//Vector3 playerPosition = mapChipFiled_->GetMapChipPositionByIndex()
+	model_ = Model::CreateFromOBJ("player" , true);
 
 }
 
