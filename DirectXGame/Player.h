@@ -6,6 +6,8 @@ class Player{
 
 public:
 		static inline const float kAcceleration = 1.0f;
+		static inline const float kAttenuation = 1.0f;
+		static inline const float kLimitRunSpeed = 1.0f;
 		///<summary>
 		///初期化
 		///</summary>
