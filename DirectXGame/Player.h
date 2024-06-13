@@ -27,6 +27,8 @@ public:
 		void Draw();
 
 		Vector3 velocity_ = {};
+
+		
 private:
 	WorldTransform worldTransform_;
 	Model* model_= nullptr;
