@@ -1,6 +1,9 @@
-#include "ViewProjection.h"
 
 #pragma once
+#include "ViewProjection.h"
+#include "Vector3.h"
+
+class Player;
 class CameraController
 {
 	public:
@@ -17,5 +20,4 @@ private:
 	Player* target_ = nullptr;
 	Vector3 targetOffset_ = {0,0,-15.0f};
 };
-class Player;
 

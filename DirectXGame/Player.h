@@ -26,6 +26,8 @@ public:
 		///<summary>
 		void Draw();
 
+		const WorldTransform& GetWorldTransform()const{return worldTransform_;}
+
 		Vector3 velocity_ = {};
 
 		
@@ -34,7 +36,7 @@ private:
 	Model* model_= nullptr;
 	uint32_t textureHandle_ =0u;
 	ViewProjection* viewProjection_ = nullptr;
-	Player* player_ = nullptr;
+	//Player* player_ = nullptr;
 	
 };
 

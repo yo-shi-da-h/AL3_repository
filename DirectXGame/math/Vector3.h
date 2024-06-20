@@ -8,3 +8,4 @@ struct Vector3 final {
 	float y;
 	float z;
 };
+const Vector3 operator+(const Vector3& v1, const Vector3& v2);
