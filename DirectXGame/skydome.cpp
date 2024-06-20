@@ -20,6 +20,6 @@ void Skydome::Update() {
 	
 }
 
-void Skydome::Deaw() {
+void Skydome::Draw() {
 	skymodel_->Draw(worldTransform_, *viewProjection_);
 }
