@@ -1,7 +1,8 @@
 #include "GameScene.h"
 #include "WorldTransform.h"
-#include "matrix.h"
 #include "Vector3.h"
+#include "matrix.h"
+
 
 
 void WorldTransform::UpdateMatrix() { 

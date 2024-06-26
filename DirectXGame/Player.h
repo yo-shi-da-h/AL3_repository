@@ -1,7 +1,7 @@
 #include "WorldTransform.h"
 #include "Model.h"
 #include "MapChipField.h"
-#include "matrix.h"
+
 
 enum class LRDirection
         {
@@ -19,6 +19,11 @@ public:
 		float turnFirstRotationY_ = 0.0f;
 		float turnTimer_ = 0.0f;
 		static inline const float kTimeturn = 0.3f;
+		bool onGround_ = true;
+		static inline const float kGravityAcceleration = 0.5f;
+	    static inline const float kLimitFallSpeed = 0.5f;
+	    static inline const float kJumpAcceleration = 1.5f;
+
 		///<summary>
 		///初期化
 		///</summary>

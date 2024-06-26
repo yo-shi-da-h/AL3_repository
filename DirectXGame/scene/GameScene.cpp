@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include "matrix.h"
+
 #include "MapChipField.h"
 
 
@@ -60,7 +60,7 @@ void GameScene::Initialize() {
 	playermodel_ = Model::CreateFromOBJ("player",true);
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1,18);
 	model_ = Model::Create();
-    player_->Initialize(model_, &viewProjection_,playerPosition);
+    player_->Initialize(model_, textureHandle_, &viewProjection_,playerPosition);
 	
 }
 
