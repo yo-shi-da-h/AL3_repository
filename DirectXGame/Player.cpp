@@ -12,15 +12,18 @@
 
 
 
-void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position)
+void Player::Initialize(Model* model,uint32_t textureHandle, ViewProjection* viewProjection, const Vector3& position)
 {
 	//NULLチェック
 	assert(model);
 
 	worldTransform_.Initialize();
 
+	worldTransform_.TransferMatrix();
 	//引数の内容をメンバ変数に記録
 	model_ = model;
+
+	textureHandle_ = textureHandle;
 	
 	viewProjection_ = viewProjection;
 
@@ -46,13 +49,23 @@ void Player::Update()
 			if (velocity_.z < 0.0f) {
 				velocity_.z *= (1.0f - kAttenuation);
 			}
+			if (lrDirection_ != LRDirection::kRight) {
+				lrDirection_ = LRDirection::kRight;
+    				turnFirstRotationY_ = worldTransform_.rotation_.y;
+    				turnTimer_ = kTimeturn;
 
+			}
 		}
 		else if(Input::GetInstance()->PushKey(DIK_LEFT))
 		{
 			acceleration.z -= kAcceleration;
 			if (velocity_.z > 0.0f) {
 				velocity_.z *= (1.0f - kAttenuation);
+			}
+			if (lrDirection_ != LRDirection::kLeft) {
+				lrDirection_ = LRDirection::kLeft;
+				    turnFirstRotationY_ = worldTransform_.rotation_.y;
+					turnTimer_ = kTimeturn;
 			}
 		}
 		//加速/減速
@@ -68,6 +81,16 @@ void Player::Update()
 	worldTransform_.translation_.z += velocity_.z;
 	//行列計算
 	worldTransform_.UpdateMatrix();
+	{
+		float destinationRotationYTable[] = {
+			std::numbers::pi_v<float> / 2.0f,
+			std::numbers::pi_v<float> * 3.0f /2.0f
+		};
+		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
+
+		worldTransform_.rotation_.y = destinationRotationY;
+	}
+
 }
 
 void Player::Draw()
